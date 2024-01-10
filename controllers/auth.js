@@ -34,12 +34,19 @@ function register(req, res){
 }
 
 
-    function login(req, res){
+    async function login(req, res){
         const {email, password} = req.body;
         if(!email) res.status(400).send({message: "El email es obligatorio"});
         if(!password) res.status(400).send({message: "La contraseña es obligatoria"});
         
         const emailLowerCase = email.toLowerCase();
+
+                // Buscar usuario por correo electrónico
+                const userStored = await User.findOne({ email: emailLowerCase });
+                // Verificar si el usuario existe
+                if (!userStored) {
+                    return res.status(400).send({ message: "Correo electrónico o contraseña incorrectos" });
+                }
 
         User.findOne({email: emailLowerCase}, (error, userStored) => {
             if(error){
@@ -54,6 +61,7 @@ function register(req, res){
                         res.status(401).send({message: "El usuario no se ha activado"});
                     }else{
                         res.status(200).send({
+                            message: "Usuario logueado correctamente",
                             accessToken: jwt.createAccessToken(userStored),
                             refreshToken: jwt.createRefreshToken(userStored)
                         });
