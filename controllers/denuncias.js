@@ -14,7 +14,7 @@ const STATUS = {
     body('asistencia').notEmpty(),
     body('resumenHechos').notEmpty(),
     body('nombresResponsables').notEmpty(),
-    body('activo').notEmpty(),
+    body('activo').notEmpty()
     // Puedes agregar más validaciones para otros campos si es necesario
 ];
 

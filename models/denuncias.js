@@ -13,6 +13,11 @@ const DenunciaSchema = mongoose.Schema({
         ref: "user",
         required: true,
       },
+    abogado: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        require: false,
+      },
     procesos: [
         {
           type: mongoose.Schema.Types.ObjectId,

@@ -45,7 +45,7 @@ function register(req, res){
                 const userStored = await User.findOne({ email: emailLowerCase });
                 // Verificar si el usuario existe
                 if (!userStored) {
-                    return res.status(400).send({ message: "Correo electrónico o contraseña incorrectos" });
+                    return res.status(200).send({ message: "Correo electrónico incorrecto" });
                 }
 
         User.findOne({email: emailLowerCase}, (error, userStored) => {
@@ -56,9 +56,9 @@ function register(req, res){
                     if(bcryptError){
                         res.status(500).send({message: `Error del servidor`});
                     }else if(!check){
-                        res.status(400).send({message: "La contraseña es incorrecta"});
+                        res.status(200).send({message: "La contraseña es incorrecta"});
                     }else if(!userStored.active){
-                        res.status(401).send({message: "El usuario no se ha activado"});
+                        res.status(200).send({message: "El usuario no se ha activado"});
                     }else{
                         res.status(200).send({
                             message: "Usuario logueado correctamente",
