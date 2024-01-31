@@ -74,7 +74,7 @@ async function createProceso(req, res) {
     }
 
     const { denuncia, tipo, descripcion, active } = req.body;
-    const proceso = new Proceso({ ...req.body, active: false });
+    const proceso = new Proceso({ ...req.body});
 
     try {
         const existDenuncia = await Denuncia.findOne({
