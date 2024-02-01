@@ -6,7 +6,6 @@ const Denuncia_AbogadoSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true,
-        role: "abogado"
       },
       denuncia: {
         type: mongoose.Schema.Types.ObjectId,

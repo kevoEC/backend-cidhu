@@ -63,7 +63,6 @@ async function createRelacion(req, res) {
     try {
         const existUser = await User.findOne({
             _id: user,
-            role: "abogado",
             active: true,
         });
 
