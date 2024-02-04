@@ -56,8 +56,10 @@ const getDenuncias = async (req, res) => {
     try {
       const denuncias = await Denuncia.find({ active: true }).populate(
         {
+
             path: "procesos",
             select: "_id",
+            select: "tipo",
                 populate: {
                     path: "fechas",
                     select: "_id",
