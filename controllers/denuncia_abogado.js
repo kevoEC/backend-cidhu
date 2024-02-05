@@ -34,17 +34,40 @@ async function getRelacion(req, res){
     }
 }
 
-const getRelaciones = async (req, res) => {
-    const { relacion } = req;
   
+
+
+const getRelaciones = async (req, res) => {
     try {
       const relaciones = await Denuncia_Abogado.find();
-      res.status(200).json({ data: relaciones, status: true });
-      console.log(relaciones);
+      const relacionesCompletas = [];
+  
+      for (const relacion of relaciones) {
+        // Obtener datos completos del usuario
+        const usuario = await User.findOne(relacion.user).lean();
+  
+        // Obtener datos completos de la denuncia
+        const denuncia = await Denuncia.findById(relacion.denuncia).lean();
+  
+        // Combinar datos completos de la relación, usuario y denuncia
+        const relacionCompleta = {
+          _id: relacion._id,
+          user: usuario,
+          denuncia: denuncia,
+          createdAt: relacion.createdAt,
+          updatedAt: relacion.updatedAt,
+          __v: relacion.__v
+        };
+  
+        relacionesCompletas.push(relacionCompleta);
+      }
+  
+      res.status(200).json({ data: relacionesCompletas, status: true });
     } catch (error) {
       res.status(400).json({ msg: error.message, status: false });
     }
   };
+  
 
 
 
